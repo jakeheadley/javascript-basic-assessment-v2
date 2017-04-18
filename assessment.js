@@ -73,16 +73,25 @@ var daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Satur
 // -----------------------------------------------------------------------------
 // #8 Using this array do the following
 var jedi = ['Yoda', 'Mace Windu', 'Obi-Wan'];
+// console.log('jedi above', jedi);
 // add 'Luke' to the end
 jedi.push('Luke');
+// console.log('jedi with luke', jedi);
 // remove 'Yoda' and store him in a var called firstJedi
-var firstJedi = jedi.splice(0,1);
+var firstJedi = jedi.shift();
+// console.log('jedi w/o yoda', jedi);
+// console.log('first jedi', firstJedi);
 // add 'Mario' to the start of the array
 jedi.unshift('Mario');
 // remove 'Obi-Wan' from the array and store him in a var called secondJedi
-var secondJedi = jedi.splice(2,1);
+// console.log(jedi);
+var secondJedi = jedi.splice(2,1)[0];
+// console.log('SJ', secondJedi);
 // leave 'Mace Windu' in the array but put a copy of him on a var called thirdJedi
-var thirdJedi = jedi.slice(2,3);
+var thirdJedi = jedi.slice(1,3)[0];
+//console.log(thirdJedi);
+//console.log(jedi);
+// console.log(firstJedi, secondJedi, thirdJedi);
 
 // -----------------------------------------------------------------------------
 // #9 Write a function called cutInLine, that takes in an array and an item, and adds the item
@@ -91,6 +100,7 @@ var thirdJedi = jedi.slice(2,3);
 
 function cutInLine (arr, item){
 	arr.splice(1,0,item);
+	return arr;
 }
 
 // -----------------------------------------------------------------------------
@@ -103,6 +113,7 @@ function removeThings (arr, thing) {
 	for (var i=0; i<arr.length; i++){
 		if (arr[i] === thing){
 			arr.splice(i,1);
+			--i;
 		}
 	}
 	return arr;
@@ -112,8 +123,13 @@ function removeThings (arr, thing) {
 // #11 Write a function tripleTheFun that takes 1 parameter: a number or a string. It triples numbers, and
 // repeats strings. Example: 4->12, 2.5->7.5, 'Awesome'->'AwesomeAwesomeAwesome'
 
-function tripleTheFun (param) {
-	return param + param + param;
+function tripleTheFun(param){
+  if (parseInt(param) == parseInt(param)){
+    return param *= 3;
+  }
+  else {
+    return param = param + param + param;
+  }
 }
 
 // -----------------------------------------------------------------------------
@@ -141,20 +157,12 @@ function clockIn (emp, dept) {
 // #14 Create a function called spiderTest that takes in an object that is an actor, it looks to see if the actor's name is Andrew Garfield and changes the actor object to have a property called spiderRating with a value of 10.  If their name is Tobey Maguire set spiderRating to 0.  otherwise set spiderRating to 'not a spiderman'.
 
 function spiderTest (obj) {
-  if (obj.name === 'Andrew Garfield') {
-    return obj = {
-      name: 'Andrew Garfield',
-      spiderRating: 10
-    }
-  } else if (obj.name === 'Tobey Maguire') {
-    return obj = {
-      name: 'Tobey Maguire',
-      spiderRating: 0
-    }
+  if (obj['name'] === 'Andrew Garfield') {
+		obj['spiderRating'] = 10;
+  } else if (obj['name'] === 'Tobey Maguire') {
+		obj['spiderRating'] = 0;
   } else {
-    return obj = {
-      spiderRating: 'not a spiderman'
-    }
+		obj['spiderRating'] = 'not a spiderman';
   }
 }
 
@@ -169,14 +177,19 @@ function spiderTest (obj) {
 */
 
 function whatIsItOutside (temp, hume, cloud) {
+	// temperature over 85 and humidity over 45 - return "I'm all sweat"
 	if (temp > 85 && hume > 45) {
 		return 'I\'m all sweat';
+	// temperature under 40 and cloudiness over 60 - return "I have icicles"
 	} else if (temp < 40 && cloud > 60) {
 			return 'I have icicles';
+	// temperature over 85 and humidity under 45 and cloudiness under 20 - return "I'm literally in the desert"
 	} else if (temp > 85 && hume < 45 && cloud < 20) {
 			return 'I\'m literally in the desert';
-	} else if (temp > 90 && hume < 55 && cloud < 65) {
+	// temperature over 90 or humidity over 55 or cloudiness over 65 - return "Hmm, probably not"
+	} else if (temp > 90 || hume > 55 || cloud > 65) {
 			return 'Hmm, probably not';
+	// Otherwise - return "I love outside"
 	} else {
 			return 'I love outside';
 	}
